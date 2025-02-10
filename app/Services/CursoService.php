@@ -37,6 +37,11 @@ class CursoService extends Service
         }        
     }
 
+    public function update(Curso $curso, Request $request): bool
+    {
+        return $curso->update($request->validated());
+    }
+
     private function curso($request, $query)
     {
         if ($request->filled('titulo')) {
