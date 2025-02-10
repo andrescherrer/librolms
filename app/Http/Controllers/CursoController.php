@@ -49,6 +49,8 @@ class CursoController extends Controller
 
     public function destroy(Curso $curso)
     {
-        //
+        $curso->delete();
+
+        return response()->json(['message' => 'Curso excluído com sucesso'], JsonResponse::HTTP_NO_CONTENT);
     }
 }
