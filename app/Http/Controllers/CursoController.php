@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Curso\IndexRequest;
-use App\Http\Requests\Curso\StoreRequest;
-use App\Http\Resources\Curso\IndexCollection;
-use App\Http\Resources\Curso\ShowResource;
+use App\Http\Requests\Curso\{IndexRequest,StoreRequest, UpdateRequest};
+use App\Http\Resources\Curso\{IndexCollection, ShowResource};
 use App\Models\Curso;
 use App\Services\CursoService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
@@ -18,17 +15,11 @@ class CursoController extends Controller
         private Curso $model,
     ) {}
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(IndexRequest $request): IndexCollection
     {
         return new IndexCollection($this->service->filter($request));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreRequest $request): JsonResponse
     {
         $cursoCriado = $this->service->create($request);
@@ -40,25 +31,22 @@ class CursoController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Curso $curso): ShowResource
     {
         return new ShowResource($curso);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Curso $curso)
+    public function update(UpdateRequest $request, Curso $curso): JsonResponse
     {
-        //
+        $cursoAtualizado = $this->service->update($curso, $request);
+
+        if (!$cursoAtualizado) {
+            return response()->json(['message' => 'Erro ao atualizar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+        } else {
+            return response()->json(['message' => 'Curso atualizado com sucesso'], JsonResponse::HTTP_OK);            
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Curso $curso)
     {
         //
