@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class CursoService extends Service
 {
@@ -22,6 +23,18 @@ class CursoService extends Service
             })
             ->orderBy('titulo')
             ->paginate('20');
+    }
+
+    public function create(Request $request): bool
+    {
+        try {
+            $this->model->create($request->all());
+            return true;
+        }
+        catch (\Exception $e) {
+            Log::critical("Erro ao salvar o registro: ". $e->getMessage());
+            return false;
+        }        
     }
 
     private function curso($request, $query)
