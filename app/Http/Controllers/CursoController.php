@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Curso\IndexRequest;
+use App\Http\Requests\Curso\StoreRequest;
 use App\Http\Resources\Curso\IndexCollection;
 use App\Models\Curso;
 use App\Services\CursoService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
@@ -26,9 +28,15 @@ class CursoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request): JsonResponse
     {
-        //
+        $cursoCriado = $this->service->create($request);
+
+        if ($cursoCriado) {
+            return response()->json(['message' => 'Curso criado com sucesso'], JsonResponse::HTTP_CREATED);
+        } else {
+            return response()->json(['message' => 'Erro ao salvar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
