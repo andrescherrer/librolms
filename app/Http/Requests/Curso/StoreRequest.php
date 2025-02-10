@@ -60,6 +60,7 @@ class StoreRequest extends FormRequest
         ];
 
         $camposTexto = [
+            'titulo',
             'descricao',
         ];
 
