@@ -3,8 +3,9 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class Service
 {
-    abstract public function filter(Request $request);
+    abstract public function filter(Request $request): LengthAwarePaginator;
 }
