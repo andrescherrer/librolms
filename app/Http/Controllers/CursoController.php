@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Curso\IndexRequest;
 use App\Http\Requests\Curso\StoreRequest;
 use App\Http\Resources\Curso\IndexCollection;
+use App\Http\Resources\Curso\ShowResource;
 use App\Models\Curso;
 use App\Services\CursoService;
 use Illuminate\Http\JsonResponse;
@@ -42,9 +43,9 @@ class CursoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Curso $curso)
+    public function show(Curso $curso): ShowResource
     {
-        //
+        return new ShowResource($curso);
     }
 
     /**
