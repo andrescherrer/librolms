@@ -32,10 +32,10 @@ class CursoController extends Controller
     {
         $cursoCriado = $this->service->create($request);
 
-        if ($cursoCriado) {
-            return response()->json(['message' => 'Curso criado com sucesso'], JsonResponse::HTTP_CREATED);
-        } else {
+        if (!$cursoCriado) {
             return response()->json(['message' => 'Erro ao salvar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+        } else {
+            return response()->json(['message' => 'Curso criado com sucesso'], JsonResponse::HTTP_CREATED);            
         }
     }
 
