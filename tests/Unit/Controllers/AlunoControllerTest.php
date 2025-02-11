@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Mockery;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class AlunoControllerTest extends TestCase
 {
@@ -27,7 +28,8 @@ class AlunoControllerTest extends TestCase
         $this->controller = new AlunoController($this->serviceMock, $this->alunoMock);
     }
 
-    public function test_deve_retornar_colecao_de_alunos_no_index()
+    #[Test]
+    public function deve_retornar_colecao_de_alunos_no_index()
     {
         $request = Mockery::mock(IndexRequest::class);
         $paginator = new LengthAwarePaginator([], 0, 20);
@@ -41,7 +43,8 @@ class AlunoControllerTest extends TestCase
         $this->assertInstanceOf(IndexCollection::class, $response);
     }
 
-    public function test_deve_armazenar_um_novo_aluno_com_sucesso()
+    #[Test]
+    public function deve_armazenar_um_novo_aluno_com_sucesso()
     {
         $request = Mockery::mock(StoreRequest::class);
         $this->serviceMock
@@ -55,7 +58,8 @@ class AlunoControllerTest extends TestCase
         $this->assertEquals(JsonResponse::HTTP_CREATED, $response->status());
     }
 
-    public function test_deve_falhar_ao_salvar_um_novo_aluno()
+    #[Test]
+    public function deve_falhar_ao_salvar_um_novo_aluno()
     {
         $request = Mockery::mock(StoreRequest::class);
         $this->serviceMock
@@ -69,7 +73,8 @@ class AlunoControllerTest extends TestCase
         $this->assertEquals(JsonResponse::HTTP_BAD_REQUEST, $response->status());
     }
 
-    public function test_deve_mostrar_um_aluno()
+    #[Test]
+    public function deve_mostrar_um_aluno()
     {
         $this->alunoMock->shouldReceive('getAttribute')->andReturn(1);
 
@@ -77,7 +82,8 @@ class AlunoControllerTest extends TestCase
         $this->assertInstanceOf(ShowResource::class, $response);
     }
 
-    public function test_deve_atualizar_um_aluno_com_sucesso()
+    #[Test]
+    public function deve_atualizar_um_aluno_com_sucesso()
     {
         $request = Mockery::mock(UpdateRequest::class);
         $this->serviceMock
@@ -91,7 +97,8 @@ class AlunoControllerTest extends TestCase
         $this->assertEquals(JsonResponse::HTTP_OK, $response->status());
     }
 
-    public function test_deve_falhar_ao_atualizar_um_aluno()
+    #[Test]
+    public function deve_falhar_ao_atualizar_um_aluno()
     {
         $request = Mockery::mock(UpdateRequest::class);
         $this->serviceMock
@@ -105,7 +112,8 @@ class AlunoControllerTest extends TestCase
         $this->assertEquals(JsonResponse::HTTP_BAD_REQUEST, $response->status());
     }
 
-    public function test_deve_deletar_um_aluno_com_sucesso()
+    #[Test]
+    public function deve_deletar_um_aluno_com_sucesso()
     {
         $this->alunoMock->shouldReceive('delete')->once();
 
