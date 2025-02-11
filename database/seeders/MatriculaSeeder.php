@@ -18,8 +18,8 @@ class MatriculaSeeder extends Seeder
         $createdAt = $updatedAt = now();
 
         $id = 1;
-        for ($alunoId = 1; $alunoId <= 50; $alunoId++) {
-            for ($cursoId = 1; $cursoId <= 10; $cursoId++) {
+        for ($alunoId = 1; $alunoId <= 20; $alunoId++) {
+            for ($cursoId = 1; $cursoId <= 4; $cursoId++) {
                 $combinations[] = [
                     "id" => $id,
                     "aluno_id" => $alunoId,
