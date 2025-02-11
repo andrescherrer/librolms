@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('email');
-            $table->enum('sexo', ['masculino', 'feminino'])->nullable();
+            $table->enum('sexo', ['masculino', 'feminino', 'outro'])->nullable();
             $table->date('nascimento');
             $table->timestamps();
         });
