@@ -9,6 +9,10 @@ class Aluno extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['nome', 'email', 'sexo', 'nascimento'];
-    
+    protected $fillable = ['nome', 'email', 'sexo', 'nascimento'];    
+
+    public function matriculas()
+    {
+        return $this->hasMany(Matricula::class);
+    }
 }
