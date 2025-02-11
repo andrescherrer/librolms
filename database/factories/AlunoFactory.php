@@ -21,7 +21,7 @@ class AlunoFactory extends Factory
         return [
             'nome' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'sexo' => $this->faker->randomElement(['masculino', 'feminino']),
+            'sexo' => $this->faker->randomElement(['masculino', 'feminino', 'outro']),
             'nascimento' => $this->faker->date(),
         ];
     }
