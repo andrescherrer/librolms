@@ -17,7 +17,7 @@ class StoreRequest extends FormRequest
             'nome' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:alunos,email'],
             'sexo' => ['nullable', 'string', 'in:masculino,feminino'],
-            'nascimento' => ['required', 'date', 'before:today'],
+            'nascimento' => ['required', 'date', 'before:today','date_format:Y-m-d'],
         ];
     }
 
@@ -40,6 +40,7 @@ class StoreRequest extends FormRequest
             'nascimento.required' => 'O campo data de nascimento é obrigatório.',
             'nascimento.date' => 'O campo data de nascimento deve ser uma data válida.',
             'nascimento.before' => 'A data de nascimento deve ser anterior a hoje.',
+            'nascimento.date_format' => 'A data de nascimento deve estar no formato AAAA-MM-DD',
         ];
     }
 }
