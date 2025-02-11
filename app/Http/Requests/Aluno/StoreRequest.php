@@ -16,7 +16,7 @@ class StoreRequest extends FormRequest
         return [
             'nome' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:alunos,email'],
-            'sexo' => ['nullable', 'string', 'in:masculino,feminino'],
+            'sexo' => ['nullable', 'string', 'in:masculino,feminino,outro'],
             'nascimento' => ['required', 'date', 'before:today','date_format:Y-m-d'],
         ];
     }
@@ -35,7 +35,7 @@ class StoreRequest extends FormRequest
             'email.unique' => 'O e-mail informado já está em uso.',
             
             'sexo.string' => 'O campo sexo deve ser um texto.',
-            'sexo.in' => 'O campo sexo deve ser masculino ou feminino.',
+            'sexo.in' => 'O campo sexo deve ser masculino, feminino ou outro.',
 
             'nascimento.required' => 'O campo data de nascimento é obrigatório.',
             'nascimento.date' => 'O campo data de nascimento deve ser uma data válida.',

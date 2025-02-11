@@ -16,7 +16,7 @@ class UpdateRequest extends FormRequest
         return [
             'nome' => ['sometimes', 'string', 'max:255'],
             'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:alunos,email,' . $this->route('aluno')->id],
-            'sexo' => ['sometimes', 'string', 'in:masculino,feminino'],
+            'sexo' => ['sometimes', 'string', 'in:masculino,feminino,outro'],
             'nascimento' => ['sometimes', 'date', 'before:today', 'date_format:Y-m-d'],
         ];
     }
@@ -33,7 +33,7 @@ class UpdateRequest extends FormRequest
             'email.unique' => 'O e-mail informado já está em uso.',
             
             'sexo.string' => 'O campo sexo deve ser um texto.',
-            'sexo.in' => 'O campo sexo deve ser masculino ou feminino.',
+            'sexo.in' => 'O campo sexo deve ser masculino, feminino ou outro.',
 
             'nascimento.date' => 'O campo data de nascimento deve ser uma data válida.',
             'nascimento.before' => 'A data de nascimento deve ser anterior a hoje.',
