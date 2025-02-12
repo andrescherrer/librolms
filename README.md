@@ -64,7 +64,7 @@ endpoints_librolms.json
 ```bash
 sail artisan test
 ```
-![Lista de Endpoints](saida-testes.png)
+![Lista de Endpoints](saida-teste.png)
 
 
 
