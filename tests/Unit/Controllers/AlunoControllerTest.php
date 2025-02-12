@@ -15,17 +15,16 @@ use PHPUnit\Framework\Attributes\Test;
 
 class AlunoControllerTest extends TestCase
 {
-    private AlunoService $service;
-    private AlunoController $controller;
-    private Aluno $aluno;
-
+    private $serviceMock;
+    private $modelMock;
+    private $controller;
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->serviceMock = Mockery::mock(AlunoService::class);
-        $this->alunoMock = Mockery::mock(Aluno::class);
-        $this->controller = new AlunoController($this->serviceMock, $this->alunoMock);
+        $this->modelMock = Mockery::mock(Aluno::class);
+        $this->controller = new AlunoController($this->serviceMock, $this->modelMock);
     }
 
     #[Test]
@@ -76,9 +75,9 @@ class AlunoControllerTest extends TestCase
     #[Test]
     public function deve_mostrar_um_aluno()
     {
-        $this->alunoMock->shouldReceive('getAttribute')->andReturn(1);
+        $this->modelMock->shouldReceive('getAttribute')->andReturn(1);
 
-        $response = $this->controller->show($this->alunoMock);
+        $response = $this->controller->show($this->modelMock);
         $this->assertInstanceOf(ShowResource::class, $response);
     }
 
@@ -89,10 +88,10 @@ class AlunoControllerTest extends TestCase
         $this->serviceMock
             ->shouldReceive('update')
             ->once()
-            ->with($this->alunoMock, $request)
+            ->with($this->modelMock, $request)
             ->andReturn(true);
 
-        $response = $this->controller->update($request, $this->alunoMock);
+        $response = $this->controller->update($request, $this->modelMock);
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(JsonResponse::HTTP_OK, $response->status());
     }
@@ -104,10 +103,10 @@ class AlunoControllerTest extends TestCase
         $this->serviceMock
             ->shouldReceive('update')
             ->once()
-            ->with($this->alunoMock, $request)
+            ->with($this->modelMock, $request)
             ->andReturn(false);
 
-        $response = $this->controller->update($request, $this->alunoMock);
+        $response = $this->controller->update($request, $this->modelMock);
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(JsonResponse::HTTP_BAD_REQUEST, $response->status());
     }
@@ -115,9 +114,9 @@ class AlunoControllerTest extends TestCase
     #[Test]
     public function deve_deletar_um_aluno_com_sucesso()
     {
-        $this->alunoMock->shouldReceive('delete')->once();
+        $this->modelMock->shouldReceive('delete')->once();
 
-        $response = $this->controller->destroy($this->alunoMock);
+        $response = $this->controller->destroy($this->modelMock);
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(JsonResponse::HTTP_NO_CONTENT, $response->status());
     }

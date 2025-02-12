@@ -2,15 +2,15 @@
 
 namespace Tests\Unit\Controllers;
 
-use Tests\TestCase;
-use Mockery;
+use App\Http\Controllers\CursoController;
 use App\Http\Requests\Curso\{IndexRequest, StoreRequest, UpdateRequest};
 use App\Http\Resources\Curso\{IndexCollection, ShowResource};
 use App\Models\Curso;
 use App\Services\CursoService;
-use App\Http\Controllers\CursoController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Mockery;
+use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
 class CursoControllerTest extends TestCase

@@ -14,8 +14,8 @@ use PHPUnit\Framework\Attributes\Test;
 
 class MatriculaControllerTest extends TestCase
 {
-    protected $service;
-    protected $model;
+    protected $serviceMock;
+    protected $modelMock;
     protected $controller;
 
     
@@ -23,9 +23,9 @@ class MatriculaControllerTest extends TestCase
     {
         parent::setUp();
         
-        $this->service = Mockery::mock(MatriculaService::class);
-        $this->model = Mockery::mock(Matricula::class);
-        $this->controller = new MatriculaController($this->service, $this->model);
+        $this->serviceMock = Mockery::mock(MatriculaService::class);
+        $this->modelMock = Mockery::mock(Matricula::class);
+        $this->controller = new MatriculaController($this->serviceMock, $this->modelMock);
     }
 
     #[Test]
@@ -36,7 +36,7 @@ class MatriculaControllerTest extends TestCase
     $items = collect([['id' => 1, 'aluno_id' => 1, 'curso_id' => 1]]);
     $paginator = new \Illuminate\Pagination\LengthAwarePaginator($items, 1, 10);
 
-    $this->service->shouldReceive('filter')->once()->with($mockRequest)->andReturn($paginator);
+    $this->serviceMock->shouldReceive('filter')->once()->with($mockRequest)->andReturn($paginator);
 
     $response = $this->controller->index($mockRequest);
 
@@ -47,7 +47,7 @@ class MatriculaControllerTest extends TestCase
     {
         $mockRequest = Mockery::mock(StoreRequest::class);
 
-        $this->service->shouldReceive('create')->once()->with($mockRequest)->andReturn(true);
+        $this->serviceMock->shouldReceive('create')->once()->with($mockRequest)->andReturn(true);
 
         $response = $this->controller->store($mockRequest);
 
@@ -60,7 +60,7 @@ class MatriculaControllerTest extends TestCase
     {
         $mockRequest = Mockery::mock(StoreRequest::class);
 
-        $this->service->shouldReceive('create')->once()->with($mockRequest)->andReturn(false);
+        $this->serviceMock->shouldReceive('create')->once()->with($mockRequest)->andReturn(false);
 
         $response = $this->controller->store($mockRequest);
 
@@ -85,7 +85,7 @@ class MatriculaControllerTest extends TestCase
         $mockRequest = Mockery::mock(UpdateRequest::class);
         $matricula = Mockery::mock(Matricula::class);
 
-        $this->service->shouldReceive('update')->once()->with($matricula, $mockRequest)->andReturn(true);
+        $this->serviceMock->shouldReceive('update')->once()->with($matricula, $mockRequest)->andReturn(true);
 
         $response = $this->controller->update($mockRequest, $matricula);
 
@@ -99,7 +99,7 @@ class MatriculaControllerTest extends TestCase
         $mockRequest = Mockery::mock(UpdateRequest::class);
         $matricula = Mockery::mock(Matricula::class);
 
-        $this->service->shouldReceive('update')->once()->with($matricula, $mockRequest)->andReturn(false);
+        $this->serviceMock->shouldReceive('update')->once()->with($matricula, $mockRequest)->andReturn(false);
 
         $response = $this->controller->update($mockRequest, $matricula);
 
