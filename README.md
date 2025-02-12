@@ -27,7 +27,7 @@ cd lsm
 cp .env.example .env
 ```
 
-### Cliente de banco
+### Credenciais para acesso ao banco de dados:
 Consulte o .env do projeto para criar o banco com as credenciais especificadas
 no arquivo.
 ```bash
