@@ -60,5 +60,11 @@ endpoints_librolms.json
 ![Lista de Endpoints](lista-endpoints.png)
 
 
+### Para rodar os testes de unidade:
+```bash
+sail artisan test
+```
+![Lista de Endpoints](saida-testes.png)
+
 
 
