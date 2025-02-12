@@ -21,10 +21,7 @@ class MatriculaService extends Service
             )
             ->whereHas('aluno', function(Builder $query) use ($request) {
                 $this->aluno($request, $query);
-            })
-            ->whereHas('curso', function(Builder $query) use ($request) {
-                $this->curso($request, $query);
-            })
+            })            
             ->orderBy('id')
             ->paginate();
     }
@@ -54,14 +51,5 @@ class MatriculaService extends Service
         if ($request->filled('email')) {
             $query->where('email', 'LIKE', "%{$request->input('email')}%");
         }        
-    }
-    private function curso($request, $query)
-    {
-        if ($request->filled('titulo')) {
-            $query->where('titulo', 'LIKE', "%{$request->input('titulo')}%");
-        }
-        if ($request->filled('descricao')) {
-            $query->where('descricao', 'LIKE', "%{$request->input('descricao')}%");
-        }
-    }
+    }    
 }
