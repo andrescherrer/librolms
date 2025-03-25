@@ -20,7 +20,7 @@ git clone git@github.com:andrescherrer/librolms.git lms
 
 ### Acesse a pasta do projeto:
 ```bash
-cd lsm
+cd lms
 ```
 ### Crie o arquivo .env
 ```bash
@@ -62,7 +62,7 @@ endpoints_librolms.json
 
 ### Para rodar os testes de unidade:
 ```bash
-sail artisan test
+sail test
 ```
 ![Lista de Endpoints](saida-teste.png)
 
