@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "Libro LMS",
+    "name": "andrescherrer/librolms",
     "type": "project",
     "description": "Desafio Técnico Backend",
     "keywords": [
