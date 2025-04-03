@@ -1,0 +1,1225 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Libro Learning Management System",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http:\/\/localhost\/api"
+        }
+    ],
+    "paths": {
+        "\/v1\/alunos": {
+            "get": {
+                "operationId": "alunos.index",
+                "tags": [
+                    "Aluno"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`App.Http.Resources.Aluno.IndexCollection`",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/App.Http.Resources.Aluno.IndexCollection"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "alunos.store",
+                "tags": [
+                    "Aluno"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/StoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao salvar o aluno "
+                                                },
+                                                "error": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "message",
+                                                "error"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao salvar o aluno"
+                                                }
+                                            },
+                                            "required": [
+                                                "message"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Aluno criado com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            }
+        },
+        "\/v1\/alunos\/{aluno}": {
+            "get": {
+                "operationId": "alunos.show",
+                "tags": [
+                    "Aluno"
+                ],
+                "parameters": [
+                    {
+                        "name": "aluno",
+                        "in": "path",
+                        "required": true,
+                        "description": "The aluno ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`App.Http.Resources.Aluno.ShowResource`",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#\/components\/schemas\/App.Http.Resources.Aluno.ShowResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "data"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#\/components\/responses\/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "alunos.update",
+                "description": "\u26a0\ufe0f Cannot generate request documentation: Attempt to read property \"id\" on null",
+                "tags": [
+                    "Aluno"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao atualizar o aluno "
+                                                },
+                                                "error": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "message",
+                                                "error"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao atualizar o aluno"
+                                                }
+                                            },
+                                            "required": [
+                                                "message"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Aluno atualizado com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "alunos.destroy",
+                "tags": [
+                    "Aluno"
+                ],
+                "parameters": [
+                    {
+                        "name": "aluno",
+                        "in": "path",
+                        "required": true,
+                        "description": "The aluno ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro ao excluir o aluno "
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Aluno exclu\u00eddo com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#\/components\/responses\/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "\/v1\/cursos": {
+            "get": {
+                "operationId": "cursos.index",
+                "tags": [
+                    "Curso"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`IndexCollection`",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/IndexCollection"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "cursos.store",
+                "tags": [
+                    "Curso"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/App.Http.Requests.Curso.StoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao salvar o curso "
+                                                },
+                                                "error": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "message",
+                                                "error"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao salvar o curso"
+                                                }
+                                            },
+                                            "required": [
+                                                "message"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Curso criado com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            }
+        },
+        "\/v1\/cursos\/{curso}": {
+            "get": {
+                "operationId": "cursos.show",
+                "tags": [
+                    "Curso"
+                ],
+                "parameters": [
+                    {
+                        "name": "curso",
+                        "in": "path",
+                        "required": true,
+                        "description": "The curso ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`ShowResource`",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#\/components\/schemas\/ShowResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "data"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#\/components\/responses\/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "cursos.update",
+                "tags": [
+                    "Curso"
+                ],
+                "parameters": [
+                    {
+                        "name": "curso",
+                        "in": "path",
+                        "required": true,
+                        "description": "The curso ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/UpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao atualizar o curso "
+                                                },
+                                                "error": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "message",
+                                                "error"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao atualizar o curso"
+                                                }
+                                            },
+                                            "required": [
+                                                "message"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Curso atualizado com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#\/components\/responses\/ModelNotFoundException"
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "cursos.destroy",
+                "tags": [
+                    "Curso"
+                ],
+                "parameters": [
+                    {
+                        "name": "curso",
+                        "in": "path",
+                        "required": true,
+                        "description": "The curso ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro ao excluir o aluno"
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Curso exclu\u00eddo com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#\/components\/responses\/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "\/v1\/matriculas": {
+            "get": {
+                "operationId": "matriculas.index",
+                "tags": [
+                    "Matricula"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`App.Http.Resources.Matricula.IndexCollection`",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/App.Http.Resources.Matricula.IndexCollection"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "matriculas.store",
+                "tags": [
+                    "Matricula"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/App.Http.Requests.Matricula.StoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao salvar a matr\u00edcula "
+                                                },
+                                                "error": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "message",
+                                                "error"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao salvar a matr\u00edcula"
+                                                }
+                                            },
+                                            "required": [
+                                                "message"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Matr\u00edcula criada com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            }
+        },
+        "\/v1\/matriculas\/{matricula}": {
+            "get": {
+                "operationId": "matriculas.show",
+                "tags": [
+                    "Matricula"
+                ],
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "required": true,
+                        "description": "The matricula ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`App.Http.Resources.Matricula.ShowResource`",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#\/components\/schemas\/App.Http.Resources.Matricula.ShowResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "data"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#\/components\/responses\/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "matriculas.update",
+                "tags": [
+                    "Matricula"
+                ],
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "required": true,
+                        "description": "The matricula ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/App.Http.Requests.Matricula.UpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao atualizar a matr\u00edcula "
+                                                },
+                                                "error": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "message",
+                                                "error"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Erro ao atualizar a matr\u00edcula"
+                                                }
+                                            },
+                                            "required": [
+                                                "message"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Matr\u00edcula atualizada com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#\/components\/responses\/ModelNotFoundException"
+                    },
+                    "422": {
+                        "$ref": "#\/components\/responses\/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#\/components\/responses\/AuthorizationException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "matriculas.destroy",
+                "tags": [
+                    "Matricula"
+                ],
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "required": true,
+                        "description": "The matricula ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro ao excluir a matr\u00edcula "
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Matr\u00edcula exclu\u00edda com sucesso"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#\/components\/responses\/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "\/v1\/listar": {
+            "get": {
+                "operationId": "matricula.alunosPorFaixaEtariaPorCursoESexo",
+                "tags": [
+                    "Matricula"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro ao buscar dados "
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "App.Http.Requests.Curso.StoreRequest": {
+                "type": "object",
+                "properties": {
+                    "titulo": {
+                        "type": "string"
+                    },
+                    "descricao": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "titulo"
+                ],
+                "title": "App.Http.Requests.Curso.StoreRequest"
+            },
+            "App.Http.Requests.Matricula.StoreRequest": {
+                "type": "object",
+                "properties": {
+                    "aluno_id": {
+                        "type": "string"
+                    },
+                    "curso_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "aluno_id",
+                    "curso_id"
+                ],
+                "title": "App.Http.Requests.Matricula.StoreRequest"
+            },
+            "App.Http.Requests.Matricula.UpdateRequest": {
+                "type": "object",
+                "properties": {
+                    "aluno_id": {
+                        "type": "string"
+                    },
+                    "curso_id": {
+                        "type": "string"
+                    }
+                },
+                "title": "App.Http.Requests.Matricula.UpdateRequest"
+            },
+            "App.Http.Resources.Aluno.IndexCollection": {
+                "type": "string",
+                "title": "App.Http.Resources.Aluno.IndexCollection"
+            },
+            "App.Http.Resources.Aluno.ShowResource": {
+                "type": "string",
+                "title": "App.Http.Resources.Aluno.ShowResource"
+            },
+            "App.Http.Resources.Matricula.IndexCollection": {
+                "type": "string",
+                "title": "App.Http.Resources.Matricula.IndexCollection"
+            },
+            "App.Http.Resources.Matricula.ShowResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "aluno": {
+                        "type": "string"
+                    },
+                    "curso": {
+                        "type": "string"
+                    },
+                    "created": {
+                        "type": "string"
+                    },
+                    "updated": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "aluno",
+                    "curso",
+                    "created",
+                    "updated"
+                ],
+                "title": "App.Http.Resources.Matricula.ShowResource"
+            },
+            "IndexCollection": {
+                "type": "string",
+                "title": "IndexCollection"
+            },
+            "ShowResource": {
+                "type": "string",
+                "title": "ShowResource"
+            },
+            "StoreRequest": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "maxLength": 255
+                    },
+                    "sexo": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "enum": [
+                            "masculino",
+                            "feminino",
+                            "outro"
+                        ]
+                    },
+                    "nascimento": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "required": [
+                    "nome",
+                    "email",
+                    "nascimento"
+                ],
+                "title": "StoreRequest"
+            },
+            "UpdateRequest": {
+                "type": "object",
+                "properties": {
+                    "titulo": {
+                        "type": "string"
+                    },
+                    "descricao": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "title": "UpdateRequest"
+            }
+        },
+        "responses": {
+            "ValidationException": {
+                "description": "Validation error",
+                "content": {
+                    "application\/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Errors overview."
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "description": "A detailed description of each field that failed validation.",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message",
+                                "errors"
+                            ]
+                        }
+                    }
+                }
+            },
+            "AuthorizationException": {
+                "description": "Authorization error",
+                "content": {
+                    "application\/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ModelNotFoundException": {
+                "description": "Not found",
+                "content": {
+                    "application\/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
