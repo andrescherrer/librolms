@@ -32,7 +32,7 @@ class AlunoController extends Controller
                 return response()->json(['message' => 'Aluno criado com sucesso'], JsonResponse::HTTP_CREATED);            
             }
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao salvar o aluno'], JsonResponse::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Erro ao salvar o aluno', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }
         
     }
@@ -42,7 +42,7 @@ class AlunoController extends Controller
         try {
             return new ShowResource($aluno);
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao buscar o aluno'], JsonResponse::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Erro ao buscar o aluno', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 
@@ -57,7 +57,7 @@ class AlunoController extends Controller
                 return response()->json(['message' => 'Aluno atualizado com sucesso'], JsonResponse::HTTP_OK);            
             }
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao atualizar o aluno'], JsonResponse::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Erro ao atualizar o aluno', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 
@@ -68,7 +68,7 @@ class AlunoController extends Controller
 
             return response()->json(['message' => 'Aluno excluído com sucesso'], JsonResponse::HTTP_NO_CONTENT);
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao excluir o aluno'], JsonResponse::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Erro ao excluir o aluno', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 }

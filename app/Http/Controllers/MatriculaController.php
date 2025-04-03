@@ -25,29 +25,42 @@ class MatriculaController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
-        $matriculaCriada = $this->service->create($request);
+        try {
+            $matriculaCriada = $this->service->create($request);
 
-        if (!$matriculaCriada) {
-            return response()->json(['message' => 'Erro ao salvar a matrícula'], JsonResponse::HTTP_BAD_REQUEST);
-        } else {
-            return response()->json(['message' => 'Matrícula criada com sucesso'], JsonResponse::HTTP_CREATED);            
-        }
+            if (!$matriculaCriada) {
+                return response()->json(['message' => 'Erro ao salvar a matrícula'], JsonResponse::HTTP_BAD_REQUEST);
+            } else {
+                return response()->json(['message' => 'Matrícula criada com sucesso'], JsonResponse::HTTP_CREATED);            
+            }
+        } catch(\Throwable $th) {
+            return response()->json(['message' => 'Erro ao salvar a matrícula', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+        }        
     }
 
-    public function show(Matricula $matricula): ShowResource
+    public function show(Matricula $matricula): ShowResource | JsonResponse
     {
-        return new ShowResource($matricula);
+        try {
+            return new ShowResource($matricula);
+        } catch(\Throwable $th) {
+            return response()->json(['message' => 'Erro ao buscar a matrícula', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+        }        
     }
 
     public function update(UpdateRequest $request, Matricula $matricula): JsonResponse
     {
-        $matriculaAtualizada = $this->service->update($matricula, $request);
+        try {
+            $matriculaAtualizada = $this->service->update($matricula, $request);
 
-        if (!$matriculaAtualizada) {
-            return response()->json(['message' => 'Erro ao atualizar a matrícula'], JsonResponse::HTTP_BAD_REQUEST);
-        } else {
-            return response()->json(['message' => 'Matrícula atualizada com sucesso'], JsonResponse::HTTP_OK);            
+            if (!$matriculaAtualizada) {
+                return response()->json(['message' => 'Erro ao atualizar a matrícula'], JsonResponse::HTTP_BAD_REQUEST);
+            } else {
+                return response()->json(['message' => 'Matrícula atualizada com sucesso'], JsonResponse::HTTP_OK);            
+            }
+        } catch(\Throwable $th) {
+            return response()->json(['message' => 'Erro ao atualizar a matrícula', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }
+        
     }
 
     public function destroy(Matricula $matricula): JsonResponse

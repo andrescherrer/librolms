@@ -31,7 +31,7 @@ class CursoController extends Controller
                 return response()->json(['message' => 'Curso criado com sucesso'], JsonResponse::HTTP_CREATED);            
             }
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao salvar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Erro ao salvar o curso', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 
@@ -40,7 +40,7 @@ class CursoController extends Controller
         try {
             return new ShowResource($curso);
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao buscar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Erro ao buscar o curso', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 
@@ -55,7 +55,7 @@ class CursoController extends Controller
                 return response()->json(['message' => 'Curso atualizado com sucesso'], JsonResponse::HTTP_OK);            
             }
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao atualizar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Erro ao atualizar o curso', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 
@@ -66,7 +66,7 @@ class CursoController extends Controller
 
             return response()->json(['message' => 'Curso excluído com sucesso'], JsonResponse::HTTP_NO_CONTENT);
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao excluir o curso'], JsonResponse::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Erro ao excluir o curso', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 }
