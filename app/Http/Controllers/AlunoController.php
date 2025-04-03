@@ -16,12 +16,17 @@ class AlunoController extends Controller
         private Aluno $model,
     ) {}
 
-
+    /**
+     * Listar Alunos
+     */
     public function index(IndexRequest $request): IndexCollection
     {
         return new IndexCollection($this->service->filter($request));
     }
 
+    /**
+     * Adicionar Aluno
+     */
     public function store(StoreRequest $request): JsonResponse
     {
         $message = 'Erro ao salvar o aluno ';
@@ -40,6 +45,9 @@ class AlunoController extends Controller
         
     }
 
+    /**
+     * Exibir Aluno
+     */
     public function show(Aluno $aluno): ShowResource | JsonResponse
     {
         $message = 'Erro ao buscar o aluno ';
@@ -51,6 +59,9 @@ class AlunoController extends Controller
         }        
     }
 
+    /**
+     * Atualizar Aluno
+     */
     public function update(UpdateRequest $request, Aluno $aluno): JsonResponse
     {
         $message = 'Erro ao atualizar o aluno ';
@@ -68,6 +79,9 @@ class AlunoController extends Controller
         }        
     }
 
+    /**
+     * Excluir Aluno
+     */
     public function destroy(Aluno $aluno): JsonResponse
     {
         $message = 'Erro ao excluir o aluno ';

@@ -18,11 +18,17 @@ class MatriculaController extends Controller
         private Matricula $model,
     ) {}
 
+    /**
+     * Listar Matrícula
+     */
     public function index(IndexRequest $request): IndexCollection
     {
         return new IndexCollection($this->service->filter($request));
     }
 
+    /**
+     * Adicionar Matrícula
+     */
     public function store(StoreRequest $request): JsonResponse
     {
         $message = 'Erro ao salvar a matrícula ';
@@ -40,6 +46,9 @@ class MatriculaController extends Controller
         }        
     }
 
+    /**
+     * Exibit Matrícula
+     */
     public function show(Matricula $matricula): ShowResource | JsonResponse
     {
         $message = 'Erro ao buscar a matrícula ';
@@ -51,6 +60,9 @@ class MatriculaController extends Controller
         }        
     }
 
+    /**
+     * Atualizar Matrícula
+     */
     public function update(UpdateRequest $request, Matricula $matricula): JsonResponse
     {
         $message = 'Erro ao atualizar a matrícula ';
@@ -68,6 +80,9 @@ class MatriculaController extends Controller
         }
     }
 
+    /**
+     * Excluir Matrícula
+     */
     public function destroy(Matricula $matricula): JsonResponse
     {
         $message = 'Erro ao excluir a matrícula ';
@@ -81,6 +96,9 @@ class MatriculaController extends Controller
         }        
     }
 
+    /**
+     * Listar Alunos por faixa etária, curso e sexo
+     */
     public function alunos_por_faixa_etaria_por_curso_e_sexo()
     {
         $message = 'Erro ao buscar dados ';

@@ -16,11 +16,17 @@ class CursoController extends Controller
         private Curso $model,
     ) {}
 
+    /**
+     * Listar Cursos
+     */
     public function index(IndexRequest $request): IndexCollection
     {
         return new IndexCollection($this->service->filter($request));
     }
 
+    /**
+     * Adicionar Curso
+     */
     public function store(StoreRequest $request): JsonResponse
     {
         $message = 'Erro ao salvar o curso ';
@@ -38,6 +44,9 @@ class CursoController extends Controller
         }        
     }
 
+    /**
+     * Exibir Curso
+     */
     public function show(Curso $curso): ShowResource | JsonResponse
     {
         $message = 'Erro ao buscar o curso: ';
@@ -49,6 +58,9 @@ class CursoController extends Controller
         }        
     }
 
+    /**
+     * Atualizar Curso
+     */
     public function update(UpdateRequest $request, Curso $curso): JsonResponse
     {
         $message = 'Erro ao atualizar o curso ';
@@ -66,6 +78,10 @@ class CursoController extends Controller
         }        
     }
 
+
+    /**
+     * Excluir Curso
+     */
     public function destroy(Curso $curso): JsonResponse
     {
         $message = 'Erro ao excluir o curso ';
