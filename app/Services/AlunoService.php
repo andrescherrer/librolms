@@ -34,8 +34,8 @@ class AlunoService extends Service
         try {
             $this->model->create($request->all());
             return true;
-        } catch (\Exception $e) {
-            Log::critical("Erro ao salvar o aluno: ". $e->getMessage());
+        } catch(\Throwable $th) {
+            Log::critical("Erro ao salvar o aluno: ". $th->getMessage());
             return false;
         }
     }

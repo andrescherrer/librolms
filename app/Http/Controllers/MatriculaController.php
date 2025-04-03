@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Matricula\{IndexRequest,StoreRequest, UpdateRequest};
 use App\Http\Resources\Matricula\IndexCollection;
 use App\Http\Resources\Matricula\ShowResource;
-use App\Models\Aluno;
 use App\Models\Matricula;
 use App\Services\MatriculaService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class MatriculaController extends Controller
 {
@@ -25,6 +25,7 @@ class MatriculaController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
+        $message = 'Erro ao salvar a matrícula ';
         try {
             $matriculaCriada = $this->service->create($request);
 
@@ -34,21 +35,25 @@ class MatriculaController extends Controller
                 return response()->json(['message' => 'Matrícula criada com sucesso'], JsonResponse::HTTP_CREATED);            
             }
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao salvar a matrícula', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+            Log::critical($message . $th->getMessage());
+            return response()->json(['message' => $message, 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 
     public function show(Matricula $matricula): ShowResource | JsonResponse
     {
+        $message = 'Erro ao buscar a matrícula ';
         try {
             return new ShowResource($matricula);
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao buscar a matrícula', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+            Log::critical($message . $th->getMessage());
+            return response()->json(['message' => $message, 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }        
     }
 
     public function update(UpdateRequest $request, Matricula $matricula): JsonResponse
     {
+        $message = 'Erro ao atualizar a matrícula ';
         try {
             $matriculaAtualizada = $this->service->update($matricula, $request);
 
@@ -58,21 +63,29 @@ class MatriculaController extends Controller
                 return response()->json(['message' => 'Matrícula atualizada com sucesso'], JsonResponse::HTTP_OK);            
             }
         } catch(\Throwable $th) {
-            return response()->json(['message' => 'Erro ao atualizar a matrícula', 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+            Log::critical($message . $th->getMessage());
+            return response()->json(['message' => $message, 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         }
-        
     }
 
     public function destroy(Matricula $matricula): JsonResponse
     {
-        $matricula->delete();
-
-        return response()->json(['message' => 'Matrícula excluída com sucesso'], JsonResponse::HTTP_NO_CONTENT);
+        $message = 'Erro ao excluir a matrícula ';
+        try {
+            $matricula->delete();
+            
+            return response()->json(['message' => 'Matrícula excluída com sucesso'], JsonResponse::HTTP_NO_CONTENT);
+        } catch(\Throwable $th) {
+            Log::critical($message . $th->getMessage());
+            return response()->json(['message' => $message, 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+        }        
     }
 
     public function alunos_por_faixa_etaria_por_curso_e_sexo()
     {
-        $dados = DB::table('matriculas as m')
+        $message = 'Erro ao buscar dados ';
+        try {
+            $dados = DB::table('matriculas as m')
             ->join('alunos as a', 'a.id', '=', 'm.aluno_id')
             ->join('cursos as c', 'c.id', '=', 'm.curso_id')
             ->select(
@@ -88,5 +101,9 @@ class MatriculaController extends Controller
             ->get();
 
             return response()->json($dados);
+        } catch(\Throwable $th) {
+            Log::critical($message . $th->getMessage());
+            return response()->json(['message' => $message, 'error' => $th->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+        }        
     }
 }
