@@ -15,7 +15,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'nome' => ['sometimes', 'string', 'max:255'],
-            'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:alunos,email,' . $this->route('aluno')->id],
+            'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:alunos,email,id'],
             'sexo' => ['sometimes', 'string', 'in:masculino,feminino,outro'],
             'nascimento' => ['sometimes', 'date', 'before:today', 'date_format:Y-m-d'],
         ];
