@@ -23,35 +23,52 @@ class AlunoController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
-        $alunoCriado = $this->service->create($request);
+        try {
+            $alunoCriado = $this->service->create($request);
 
-        if (!$alunoCriado) {
+            if (!$alunoCriado) {
+                return response()->json(['message' => 'Erro ao salvar o aluno'], JsonResponse::HTTP_BAD_REQUEST);
+            } else {
+                return response()->json(['message' => 'Aluno criado com sucesso'], JsonResponse::HTTP_CREATED);            
+            }
+        } catch(\Throwable $th) {
             return response()->json(['message' => 'Erro ao salvar o aluno'], JsonResponse::HTTP_BAD_REQUEST);
-        } else {
-            return response()->json(['message' => 'Aluno criado com sucesso'], JsonResponse::HTTP_CREATED);            
         }
+        
     }
 
-    public function show(Aluno $aluno): ShowResource
+    public function show(Aluno $aluno): ShowResource | JsonResponse
     {
-        return new ShowResource($aluno);
+        try {
+            return new ShowResource($aluno);
+        } catch(\Throwable $th) {
+            return response()->json(['message' => 'Erro ao buscar o aluno'], JsonResponse::HTTP_BAD_REQUEST);
+        }        
     }
 
     public function update(UpdateRequest $request, Aluno $aluno): JsonResponse
     {
-        $alunoAtualizado = $this->service->update($aluno, $request);
+        try {
+            $alunoAtualizado = $this->service->update($aluno, $request);
 
-        if (!$alunoAtualizado) {
+            if (!$alunoAtualizado) {
+                return response()->json(['message' => 'Erro ao atualizar o aluno'], JsonResponse::HTTP_BAD_REQUEST);
+            } else {
+                return response()->json(['message' => 'Aluno atualizado com sucesso'], JsonResponse::HTTP_OK);            
+            }
+        } catch(\Throwable $th) {
             return response()->json(['message' => 'Erro ao atualizar o aluno'], JsonResponse::HTTP_BAD_REQUEST);
-        } else {
-            return response()->json(['message' => 'Aluno atualizado com sucesso'], JsonResponse::HTTP_OK);            
-        }
+        }        
     }
 
     public function destroy(Aluno $aluno): JsonResponse
     {
-        $aluno->delete();
+        try {
+            $aluno->delete();
 
-        return response()->json(['message' => 'Aluno excluído com sucesso'], JsonResponse::HTTP_NO_CONTENT);
+            return response()->json(['message' => 'Aluno excluído com sucesso'], JsonResponse::HTTP_NO_CONTENT);
+        } catch(\Throwable $th) {
+            return response()->json(['message' => 'Erro ao excluir o aluno'], JsonResponse::HTTP_BAD_REQUEST);
+        }        
     }
 }
