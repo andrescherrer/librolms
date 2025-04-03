@@ -22,35 +22,51 @@ class CursoController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
-        $cursoCriado = $this->service->create($request);
+        try {
+            $cursoCriado = $this->service->create($request);
 
-        if (!$cursoCriado) {
+            if (!$cursoCriado) {
+                return response()->json(['message' => 'Erro ao salvar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+            } else {
+                return response()->json(['message' => 'Curso criado com sucesso'], JsonResponse::HTTP_CREATED);            
+            }
+        } catch(\Throwable $th) {
             return response()->json(['message' => 'Erro ao salvar o curso'], JsonResponse::HTTP_BAD_REQUEST);
-        } else {
-            return response()->json(['message' => 'Curso criado com sucesso'], JsonResponse::HTTP_CREATED);            
-        }
+        }        
     }
 
-    public function show(Curso $curso): ShowResource
+    public function show(Curso $curso): ShowResource | JsonResponse
     {
-        return new ShowResource($curso);
+        try {
+            return new ShowResource($curso);
+        } catch(\Throwable $th) {
+            return response()->json(['message' => 'Erro ao buscar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+        }        
     }
 
     public function update(UpdateRequest $request, Curso $curso): JsonResponse
     {
-        $cursoAtualizado = $this->service->update($curso, $request);
+        try {
+            $cursoAtualizado = $this->service->update($curso, $request);
 
-        if (!$cursoAtualizado) {
+            if (!$cursoAtualizado) {
+                return response()->json(['message' => 'Erro ao atualizar o curso'], JsonResponse::HTTP_BAD_REQUEST);
+            } else {
+                return response()->json(['message' => 'Curso atualizado com sucesso'], JsonResponse::HTTP_OK);            
+            }
+        } catch(\Throwable $th) {
             return response()->json(['message' => 'Erro ao atualizar o curso'], JsonResponse::HTTP_BAD_REQUEST);
-        } else {
-            return response()->json(['message' => 'Curso atualizado com sucesso'], JsonResponse::HTTP_OK);            
-        }
+        }        
     }
 
-    public function destroy(Curso $curso)
+    public function destroy(Curso $curso): JsonResponse
     {
-        $curso->delete();
+        try {
+            $curso->delete();
 
-        return response()->json(['message' => 'Curso excluído com sucesso'], JsonResponse::HTTP_NO_CONTENT);
+            return response()->json(['message' => 'Curso excluído com sucesso'], JsonResponse::HTTP_NO_CONTENT);
+        } catch(\Throwable $th) {
+            return response()->json(['message' => 'Erro ao excluir o curso'], JsonResponse::HTTP_BAD_REQUEST);
+        }        
     }
 }
